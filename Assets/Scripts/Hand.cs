@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//아직 인덱싱 문제가 있으나 지금 당장 신경쓰지 않아도 된다.
 public class Hand : MonoBehaviour
 {
     public float radius;

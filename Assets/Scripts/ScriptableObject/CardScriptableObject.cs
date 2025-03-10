@@ -17,8 +17,8 @@ namespace ScriptableObject
         public _CardType CardType { get => cardType; set => cardType = value; }
     
         [SerializeField]
-        private string name;
-        public string Name { get => name; set => name = value; }
+        private string cardName;
+        public string CardName { get => name; set => name = value; }
         
         [SerializeField]
         [TextArea]private string description;
@@ -39,6 +39,20 @@ namespace ScriptableObject
         [SerializeField]
         private int cost;
         public int Cost { get => cost; set => cost = value; }
-        
+
+        [SerializeField]
+        private MonsterEffects monsterEffects;
+        public MonsterEffects MonsterEffects { get => monsterEffects; set => monsterEffects = value; }
+
+        [SerializeField]
+        private MagicEffects magicEffects;
+        public MagicEffects MagicEffects{ get => magicEffects; set => magicEffects = value; }
+
+        [SerializeField]
+        private PassiveEffects passiveEffects;
+        public PassiveEffects PassiveEffects { get => passiveEffects; set => passiveEffects = value; }
+
+
+
     }
 }
