@@ -9,7 +9,6 @@ public class Hand : MonoBehaviour
     public int maxCardCount;
     public List<GameObject> cardsInHand = new List<GameObject>();
     public GameObject cardSample;
-    public float radDegree;
     void Start()
     {
         var originPos = gameObject.transform.position.y - radius*2;
@@ -19,7 +18,7 @@ public class Hand : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
+        { 
             OnCardDraw();
         }   
     }
@@ -27,58 +26,80 @@ public class Hand : MonoBehaviour
     {
         if (cardsInHand.Count + 1 <= maxCardCount)
         {
-            cardsInHand.Add(cardSample);
+            SpawnCard(cardSample);
             GettingInHand();
         }
 
     }
+    public Vector2 SolvePosition(float degree)
+    {
+        degree *= Mathf.Deg2Rad;
+        float x = radius * Mathf.Sin(degree);
+        float y = -radius * Mathf.Cos(degree) + radius; 
+        return new Vector2(x, y);
+    }
+
     public void GettingInHand()
     {
+        if (cardsInHand.Count == 0) return; 
 
         if (cardsInHand.Count % 2 == 0)
         {
-            var pivot1 = cardsInHand.Count / 2-1;
-            var pivot2 = cardsInHand.Count / 2;
-            var degree = radius / 2;
-            SpawnCard(cardsInHand[pivot1],degree);
-            SpawnCard(cardsInHand[pivot2],-1*degree);
+            int pivot1 = cardsInHand.Count / 2 - 1;
+            int pivot2 = cardsInHand.Count / 2;
+            float degree = angle / 2;
 
-            for (var i = 1; i < pivot2; i++)
+            if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
+                ReplaceHandCard(cardsInHand[pivot1], degree);
+
+            if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
+                ReplaceHandCard(cardsInHand[pivot2], -degree);
+
+            for (int i = 1; i < pivot2; i++)
             {
                 pivot1--;
                 pivot2++;
-                radDegree += radius;
-                SpawnCard(cardsInHand[pivot1], radDegree);
-                SpawnCard(cardsInHand[pivot2], -1 * radDegree);
+                degree += angle;
+
+                if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
+                    ReplaceHandCard(cardsInHand[pivot1], degree);
+
+                if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
+                    ReplaceHandCard(cardsInHand[pivot2], -degree);
             }
         }
         else
         {
-            var pivot = cardsInHand.Count / 2;
-            var pivot1 = pivot + 1;
-            var pivot2 = pivot - 1;
-            SpawnCard(cardsInHand[pivot], radDegree);
-            for(var i = 1;i< pivot; i++)
+            int pivot = cardsInHand.Count / 2;
+            int pivot1 = pivot + 1;
+            int pivot2 = pivot - 1;
+
+            if (pivot >= 0 && pivot < cardsInHand.Count)
+                ReplaceHandCard(cardsInHand[pivot], 0);
+
+            for (int i = 1; i <= pivot; i++)
             {
-                radDegree += radius;
-                SpawnCard(cardsInHand[pivot1++], radDegree);
-                SpawnCard(cardsInHand[pivot2++], -1 * radDegree);
+                float newDegree = i * angle;
+
+                if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
+                    ReplaceHandCard(cardsInHand[pivot1++], newDegree);
+
+                if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
+                    ReplaceHandCard(cardsInHand[pivot2--], -newDegree);
             }
         }
-       
     }
-    public Vector2 SolvePosition(float degree)
+
+
+    public void ReplaceHandCard(GameObject card, float degree)
     {
-        degree *= Mathf.Deg2Rad;
-        var y = radius * Mathf.Cos(degree);
-        var x = radius * Mathf.Sin(degree);
-        return new Vector2(x, y);
+        card.transform.position = SolvePosition(degree);
+        card.transform.rotation = Quaternion.Euler(0, 0, degree); 
     }
-    public void SpawnCard(GameObject card, float degree)
+    public void SpawnCard(GameObject card)
     {
-        var copyCard = Instantiate(card,gameObject.transform.position,Quaternion.Euler(0, 0, -1*degree));
+        var copyCard = Instantiate(card);
         copyCard.transform.parent = gameObject.transform;
-        var distance = SolvePosition(degree);
-        copyCard.gameObject.transform.position = distance;
+        cardsInHand.Add(copyCard);
     }
 }
