@@ -300,9 +300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e18a55da81016d44bddd8fb9af1c8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: -10
+  radius: -3
   angle: 8
-  maxCardCount: 7
+  maxCardCount: 40
   cardsInHand: []
   cardSample: {fileID: 3184944757531432226, guid: 93cdb7bd29ec9bf45a279dabcbf3b142, type: 3}
 --- !u!1660057539 &9223372036854775807

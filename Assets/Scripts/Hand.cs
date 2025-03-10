@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,16 +10,16 @@ public class Hand : MonoBehaviour
     public GameObject cardSample;
     void Start()
     {
-        var originPos = gameObject.transform.position.y - radius*2;
+        var originPos = gameObject.transform.position.y - radius * 2;
         gameObject.transform.position = new Vector2(gameObject.transform.position.x, originPos);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        { 
+        {
             OnCardDraw();
-        }   
+        }
     }
     public void OnCardDraw()
     {
@@ -35,37 +34,28 @@ public class Hand : MonoBehaviour
     {
         degree *= Mathf.Deg2Rad;
         float x = radius * Mathf.Sin(degree);
-        float y = -radius * Mathf.Cos(degree) + radius; 
+        float y = -radius * Mathf.Cos(degree) + radius;
         return new Vector2(x, y);
     }
 
     public void GettingInHand()
     {
-        if (cardsInHand.Count == 0) return; 
-
         if (cardsInHand.Count % 2 == 0)
         {
             int pivot1 = cardsInHand.Count / 2 - 1;
             int pivot2 = cardsInHand.Count / 2;
             float degree = angle / 2;
 
-            if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
-                ReplaceHandCard(cardsInHand[pivot1], degree);
-
-            if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
-                ReplaceHandCard(cardsInHand[pivot2], -degree);
+            ReplaceHandCard(cardsInHand[pivot1], degree);
+            ReplaceHandCard(cardsInHand[pivot2], -degree);
 
             for (int i = 1; i < pivot2; i++)
             {
                 pivot1--;
                 pivot2++;
                 degree += angle;
-
-                if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
-                    ReplaceHandCard(cardsInHand[pivot1], degree);
-
-                if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
-                    ReplaceHandCard(cardsInHand[pivot2], -degree);
+                ReplaceHandCard(cardsInHand[pivot1], degree);
+                ReplaceHandCard(cardsInHand[pivot2], -degree);
             }
         }
         else
@@ -74,27 +64,21 @@ public class Hand : MonoBehaviour
             int pivot1 = pivot + 1;
             int pivot2 = pivot - 1;
 
-            if (pivot >= 0 && pivot < cardsInHand.Count)
-                ReplaceHandCard(cardsInHand[pivot], 0);
+            ReplaceHandCard(cardsInHand[pivot], 0);
 
             for (int i = 1; i <= pivot; i++)
             {
                 float newDegree = i * angle;
-
-                if (pivot1 >= 0 && pivot1 < cardsInHand.Count)
-                    ReplaceHandCard(cardsInHand[pivot1++], newDegree);
-
-                if (pivot2 >= 0 && pivot2 < cardsInHand.Count)
-                    ReplaceHandCard(cardsInHand[pivot2--], -newDegree);
+                ReplaceHandCard(cardsInHand[pivot1++], newDegree);
+                ReplaceHandCard(cardsInHand[pivot2--], -newDegree);
             }
         }
     }
 
-
     public void ReplaceHandCard(GameObject card, float degree)
     {
         card.transform.position = SolvePosition(degree);
-        card.transform.rotation = Quaternion.Euler(0, 0, degree); 
+        card.transform.rotation = Quaternion.Euler(0, 0, degree);
     }
     public void SpawnCard(GameObject card)
     {
