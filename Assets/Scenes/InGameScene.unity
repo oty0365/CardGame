@@ -155,8 +155,8 @@ Camera:
   m_GameObject: {fileID: 954762468}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
   angle: 7
   maxCardCount: 7
   cardsInHand: []
-  cardSample: {fileID: 3184944757531432226, guid: 93cdb7bd29ec9bf45a279dabcbf3b142, type: 3}
+  cardSample: {fileID: 3684849840610124932, guid: 9dfded3855f29cc47b94f9e5df732e71, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 //아직 인덱싱 문제가 있으나 지금 당장 신경쓰지 않아도 된다.
 public class Hand : MonoBehaviour
@@ -47,37 +48,38 @@ public class Hand : MonoBehaviour
             int pivot2 = cardsInHand.Count / 2;
             float degree = angle / 2;
 
-            ReplaceHandCard(cardsInHand[pivot1], degree);
-            ReplaceHandCard(cardsInHand[pivot2], -degree);
+            ReplaceHandCard(cardsInHand[pivot1], degree,pivot1);
+            ReplaceHandCard(cardsInHand[pivot2], -degree, pivot2);
 
             for (int i = 1; i < pivot2; i++)
             {
                 pivot1--;
                 pivot2++;
                 degree += angle;
-                ReplaceHandCard(cardsInHand[pivot1], degree);
-                ReplaceHandCard(cardsInHand[pivot2], -degree);
+                ReplaceHandCard(cardsInHand[pivot1], degree,pivot1);
+                ReplaceHandCard(cardsInHand[pivot2], -degree,pivot2);
             }
         }
         else
         {
             int pivot = cardsInHand.Count / 2;
-            int pivot1 = pivot + 1;
-            int pivot2 = pivot - 1;
+            int pivot1 = pivot - 1;
+            int pivot2 = pivot + 1;
 
-            ReplaceHandCard(cardsInHand[pivot], 0);
+            ReplaceHandCard(cardsInHand[pivot], 0, pivot);
 
             for (int i = 1; i <= pivot; i++)
             {
                 float newDegree = i * angle;
-                ReplaceHandCard(cardsInHand[pivot1++], newDegree);
-                ReplaceHandCard(cardsInHand[pivot2--], -newDegree);
+                ReplaceHandCard(cardsInHand[pivot1--], newDegree, pivot1);
+                ReplaceHandCard(cardsInHand[pivot2++], -newDegree,pivot2);
             }
         }
     }
 
-    public void ReplaceHandCard(GameObject card, float degree)
+    public void ReplaceHandCard(GameObject card, float degree,int layer)
     {
+        card.GetComponent<SortingGroup>().sortingOrder = layer;
         card.transform.position = SolvePosition(degree);
         card.transform.rotation = Quaternion.Euler(0, 0, degree);
     }
