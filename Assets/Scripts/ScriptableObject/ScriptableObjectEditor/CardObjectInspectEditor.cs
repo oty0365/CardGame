@@ -12,7 +12,7 @@ namespace ScriptableObject.ScriptableObjectEditor
     }
     
     [CustomEditor(typeof(CardScriptableObject))]
-    public class CardScriptableObjectEditor : Editor
+    public class CardObjectInspectEditor : Editor
     {
         private CardScriptableObject cardScriptableObject;
         private Sprite sprite;
@@ -28,7 +28,7 @@ namespace ScriptableObject.ScriptableObjectEditor
             cardScriptableObject.CardType = (ScriptableObject._CardType)EditorGUILayout.EnumPopup(cardScriptableObject.CardType);
             cardScriptableObject.CardName = EditorGUILayout.TextField("카드 이름", cardScriptableObject.CardName);
             EditorGUILayout.LabelField("카드 설명");
-            cardScriptableObject.Description = EditorGUILayout.TextArea(cardScriptableObject.Description, GUILayout.Height(60));
+            cardScriptableObject.CardDescription = EditorGUILayout.TextArea(cardScriptableObject.CardDescription, GUILayout.Height(60));
             cardScriptableObject.Sprite = (Sprite)EditorGUILayout.ObjectField("카드 이미지", cardScriptableObject.Sprite, typeof(Sprite), false);
             EditorGUILayout.Space();
             switch (cardScriptableObject.CardType)
