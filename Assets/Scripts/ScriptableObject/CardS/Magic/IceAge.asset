@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
-  m_Name: Card 1
+  m_Name: IceAge
   m_EditorClassIdentifier: 
-  cardType: 2
-  cardName: "\u3141\u3147\u3134\u3141\u3147"
-  cardDescription: "\u3141\u3147\u3141\u3147\u3141"
-  sprite: {fileID: 0}
-  damage: 0
-  health: 0
-  cost: 0
-  monsterEffects: 0
-  magicEffects: 0
+  cardCode: iceage
+  cardType: 1
+  cardName: "\uC544\uC774\uC2A4 \uC5D0\uC774\uC9C0"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 828f215dfa658794da13dfd7c874e96f, type: 3}
+  damage: 3
+  health: 1
+  cost: 4
+  monsterEffects: 68
+  magicEffects: 4
   passiveEffects: 0

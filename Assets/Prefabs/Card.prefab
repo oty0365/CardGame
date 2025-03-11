@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 8745013884538287779}
   - component: {fileID: 6192896182352614650}
   - component: {fileID: 5983776957595303692}
+  - component: {fileID: 1273485382190346326}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -369,6 +370,29 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1273485382190346326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684849840610124932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ca2ff7a1af686479e42430ab40e9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardFrame:
+  - {fileID: -5183841319591154371, guid: c752b88074d6a1e408329fb8fcea8d3e, type: 3}
+  - {fileID: 3817742055212812799, guid: ad6ac74495f18894cb0a246fe3b5cf63, type: 3}
+  - {fileID: 5620351805052409141, guid: 84ea220e4b1536a4fa30aeddd76f5e3f, type: 3}
+  - {fileID: 579672347098245312, guid: 94cb652e83295bd4aa471520c3bee2ce, type: 3}
+  card: {fileID: 0}
+  cardName: {fileID: 385952160765991528}
+  cardCoast: {fileID: 8933181945264027576}
+  cardDesc: {fileID: 6773661658792892098}
+  damage: {fileID: 7074480011666024833}
+  hp: {fileID: 6372057492621976050}
 --- !u!1 &5532435956297276611
 GameObject:
   m_ObjectHideFlags: 0

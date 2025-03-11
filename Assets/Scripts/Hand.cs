@@ -36,7 +36,7 @@ public class Hand : MonoBehaviour
     {
         degree *= Mathf.Deg2Rad;
         float x = radius * Mathf.Sin(degree);
-        float y = -radius * Mathf.Cos(degree) + radius;
+        float y = -radius * Mathf.Cos(degree) + radius+radius/3.5f;
         return new Vector2(x, y);
     }
 

@@ -7,7 +7,10 @@ public enum MonsterEffects
     Roar = 1<<0,
     SpineBody = 1<<1,
     Tocxic = 1<<2,
-    Flames =1<<3
+    Flames =1<<3,
+    Imortality = 1<<4,
+    Grow = 1<<5,
+    Predation = 1<<6
 }
 [System.Flags]
 public enum MagicEffects

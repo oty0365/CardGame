@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: PolarBaby
+  m_EditorClassIdentifier: 
+  cardCode: polarbaby
+  cardType: 0
+  cardName: "\uD3F4\uB77C\uBCA0\uC774\uBE44"
+  cardDescription: 
+  sprite: {fileID: 6283076248310004679, guid: 206f205cc848f584e826dc3da37b6725, type: 3}
+  damage: 2
+  health: 4
+  cost: 1
+  monsterEffects: 32
+  magicEffects: 0
+  passiveEffects: 0
