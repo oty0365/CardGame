@@ -25,7 +25,7 @@ public enum PassiveEffects
     BloodyDay= 1<<1
 }
 
-//ÀÏ´Ü ÀÌ ¾Æ·¡´Â ³ªÁß¿¡ ÀÌÆåÆ® ´Ù·ê¶§ Ã³¸®ÇÒ°Å ¾ÆÁ÷ ½Å°æ ¾È½áµµ µÊ
+//ì¼ë‹¨ ì´ ì•„ëž˜ëŠ” ë‚˜ì¤‘ì— ì´íŽ™íŠ¸ ë‹¤ë£°ë•Œ ì²˜ë¦¬í• ê±° ì•„ì§ ì‹ ê²½ ì•ˆì¨ë„ ë¨
 public class EffectManager : MonoBehaviour
 {
     void Start()

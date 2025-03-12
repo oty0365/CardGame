@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Vector2 = System.Numerics.Vector2;
@@ -10,6 +11,9 @@ namespace ScriptableObject.ScriptableObjectEditor
         private List<CardScriptableObject> cards = new List<CardScriptableObject>();
         private UnityEngine.Vector2 scrollPos;
         private CardScriptableObject selectedCard;
+        private bool isCreateCard = false;
+        private CardScriptableObject newCard;
+        private string newCardPath = "";
 
         [MenuItem("Tools/Create Card ScriptableObject")]
         public static void ShowWindow()
@@ -21,30 +25,72 @@ namespace ScriptableObject.ScriptableObjectEditor
         {
             EditorGUILayout.LabelField("Card Data Manager", EditorStyles.boldLabel);
 
-            if (GUILayout.Button("Load All Cards"))
+            if (!isCreateCard) // 카드 생성 모드가 아닐 때
             {
-                LoadAllCards();
-            }
-
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-
-            foreach (var card in cards)
-            {
-                if (GUILayout.Button(card.name))
+                if (GUILayout.Button("Load All Cards"))
                 {
-                    selectedCard = card;
+                    LoadAllCards();
+                }
+
+                if (GUILayout.Button("Create New Card"))
+                {
+                    isCreateCard = true;
+                    CreateNewCard();
+                }
+
+                scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+                {
+                    foreach (var card in cards)
+                    {
+                        if (card != null && GUILayout.Button(card.name))
+                        {
+                            selectedCard = card;
+                        }
+                    }
+                }
+                EditorGUILayout.EndScrollView();
+
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Card ScriptableObject", EditorStyles.boldLabel);
+
+                if (selectedCard != null)
+                {
+                    if (AssetDatabase.Contains(selectedCard))
+                    {
+                        SerializedObject serializedObject = new SerializedObject(selectedCard);
+                        serializedObject.Update();
+
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("cardName"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("cardDescription"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("sprite"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("damage"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("health"));
+                        EditorGUILayout.PropertyField(serializedObject.FindProperty("cost"));
+
+                        serializedObject.ApplyModifiedProperties();
+
+                        if (GUILayout.Button("Save Changes"))
+                        {
+                            EditorUtility.SetDirty(selectedCard);
+                            AssetDatabase.SaveAssets();
+                        }
+                    }
+                    else
+                    {
+                        selectedCard = null;
+                    }
                 }
             }
-
-            EditorGUILayout.EndScrollView();
-
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Card ScriptableObject", EditorStyles.boldLabel);
-
-            // selectedCard가 null인지 확인
-            if (selectedCard != null)
+            else // 카드 생성 모드일 때
             {
-                SerializedObject serializedObject = new SerializedObject(selectedCard);
+                EditorGUILayout.LabelField("Create New Card", EditorStyles.boldLabel);
+
+                if (newCard == null)
+                {
+                    CreateNewCard();
+                }
+
+                SerializedObject serializedObject = new SerializedObject(newCard);
                 serializedObject.Update();
 
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cardName"));
@@ -56,18 +102,61 @@ namespace ScriptableObject.ScriptableObjectEditor
 
                 serializedObject.ApplyModifiedProperties();
 
-                if (GUILayout.Button("Save Changes"))
+                EditorGUILayout.Space();
+                if (GUILayout.Button("Save New Card"))
                 {
-                    EditorUtility.SetDirty(selectedCard);
-                    AssetDatabase.SaveAssets();
+                    SaveNewCard();
                 }
-            }
-            else
-            {
-                EditorGUILayout.HelpBox("카드를 선택하세요.", MessageType.Warning);
+
+                if (GUILayout.Button("Cancel"))
+                {
+                    isCreateCard = false;
+                    newCard = null;
+                }
             }
         }
 
+        private void CreateNewCard()
+        {
+            newCard = UnityEngine.ScriptableObject.CreateInstance<CardScriptableObject>();
+
+            string directoryPath = "Assets/Resources/Cards/";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+                AssetDatabase.Refresh();
+            }
+
+            newCardPath = AssetDatabase.GenerateUniqueAssetPath(directoryPath + "NewCard.asset");
+            AssetDatabase.CreateAsset(newCard, newCardPath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        private void SaveNewCard()
+        {
+            if (newCard == null)
+            {
+                Debug.LogError("Error: newCard is null!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(newCardPath))
+            {
+                Debug.LogError("Error: newCardPath is empty!");
+                return;
+            }
+
+            EditorUtility.SetDirty(newCard);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            cards.Add(newCard);
+            selectedCard = newCard;
+            isCreateCard = false;
+            newCard = null;
+            newCardPath = "";
+        }
 
         private void LoadAllCards()
         {
@@ -78,9 +167,12 @@ namespace ScriptableObject.ScriptableObjectEditor
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 CardScriptableObject cardScriptableObject = AssetDatabase.LoadAssetAtPath<CardScriptableObject>(path);
-                cards.Add(cardScriptableObject);
+                if (cardScriptableObject != null) 
+                {
+                    cards.Add(cardScriptableObject);
+                }
             }
-            
+
             if (cards.Count > 0 && selectedCard == null)
             {
                 selectedCard = cards[0];

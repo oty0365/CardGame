@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      maneatingflower_0: 4113289393235408459
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
