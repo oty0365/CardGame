@@ -1,6 +1,8 @@
 using ScriptableObject;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum CardState
 {
@@ -8,43 +10,36 @@ public enum CardState
     Hover,
     Selected,
 }
-public class InGameCard : MonoBehaviour
+public class InGameCard : MonoBehaviour,IInteracter
 {
     [Header("카드 프레임")]
-    public Sprite[] cardFrame;
+    [SerializeField] private Sprite[] cardFrame;
     [Header("카드 스크립터블 오브젝트")]
     public CardScriptableObject card;
     [Header("카드형식")]
     public SpriteRenderer currentCardFrame;
-    public TextMeshPro cardName;
-    public TextMeshPro cardCoast;
-    public TextMeshPro cardDesc;
-    public TextMeshPro damage;
-    public TextMeshPro hp;
+    [SerializeField] private TextMeshPro cardName;
+    [SerializeField] private TextMeshPro cardCoast;
+    [SerializeField] private TextMeshPro cardDesc;
+    [SerializeField] private TextMeshPro damage;
+    [SerializeField] private TextMeshPro hp;
     [Header("카드 상태")]
     public CardState cardState;
-    public float multiplyer;
-    public float changeSpeed;
+    [SerializeField] private float multiplyer;
+    [SerializeField] private float changeSpeed;
 
+
+    private SortingGroup sortingGroup;
     private Vector3 originalScale;
     private Vector3 changedScale;
+    private Coroutine scalingFlow;
+    private int currentLayer;
 
     void Start()
     {
+        sortingGroup = GetComponent<SortingGroup>();
         InitCard();
-        CardUpdate();
-    }
-    private void Update()
-    {
-        switch (cardState)
-        {
-            case CardState.None:
-                ReturnToOrigin();
-                break;
-            case CardState.Hover:
-                CardOnHover();
-                break;
-        }
+        //CardUpdate();
     }
     public void CardUpdate()
     {
@@ -83,12 +78,41 @@ public class InGameCard : MonoBehaviour
         originalScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
         changedScale = originalScale * multiplyer;
     }
-    public void CardOnHover()
+    public void CardScaling(Vector3 targetScale) 
     {
-        gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, changedScale, changeSpeed * Time.deltaTime);
+        gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, targetScale, changeSpeed * Time.deltaTime);
     }
-    public void ReturnToOrigin()
+    private IEnumerator ChangeScaleFlow(Vector3 targetScale)
     {
-        gameObject.transform.localScale=Vector3.Lerp(gameObject.transform.localScale, originalScale, changeSpeed * Time.deltaTime);
+        while (Vector3.Distance(targetScale, gameObject.transform.localScale) > 0.01f)
+        {
+            CardScaling(targetScale);
+            yield return null;
+        }
+    }
+    public void OnHover()
+    {
+
+        if (scalingFlow != null)
+        {
+            StopCoroutine(scalingFlow);
+        }
+        scalingFlow = StartCoroutine(ChangeScaleFlow(changedScale));
+        currentLayer = sortingGroup.sortingOrder;
+        sortingGroup.sortingOrder = 20;
+    }
+    public void ExitHover()
+    {
+
+        if (scalingFlow != null)
+        {
+            StopCoroutine(scalingFlow);
+        }
+        scalingFlow = StartCoroutine(ChangeScaleFlow(originalScale));
+        sortingGroup.sortingOrder = currentLayer;
+    }
+    public void OnClick()
+    {
+
     }
 }

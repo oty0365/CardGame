@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-//아직 인덱싱 문제가 있으나 지금 당장 신경쓰지 않아도 된다.
+
 public class Hand : MonoBehaviour
 {
     public float radius;
@@ -29,8 +30,13 @@ public class Hand : MonoBehaviour
         {
             SpawnCard(cardSample);
             GettingInHand();
+            CheckCardAngle();
         }
 
+    }
+    public void CheckCardAngle()
+    {
+        angle-=1;
     }
     public Vector2 SolvePosition(float degree)
     {
@@ -47,17 +53,17 @@ public class Hand : MonoBehaviour
             int pivot1 = cardsInHand.Count / 2 - 1;
             int pivot2 = cardsInHand.Count / 2;
             float degree = angle / 2;
-
+            var pivot = pivot2;
             ReplaceHandCard(cardsInHand[pivot1], degree,pivot1);
-            ReplaceHandCard(cardsInHand[pivot2], -degree, pivot2);
+            ReplaceHandCard(cardsInHand[pivot2], -1*degree, pivot2);
 
-            for (int i = 1; i < pivot2; i++)
+            for (int i = 1; i < pivot; i++)
             {
                 pivot1--;
                 pivot2++;
                 degree += angle;
                 ReplaceHandCard(cardsInHand[pivot1], degree,pivot1);
-                ReplaceHandCard(cardsInHand[pivot2], -degree,pivot2);
+                ReplaceHandCard(cardsInHand[pivot2], -1*degree,pivot2);
             }
         }
         else
