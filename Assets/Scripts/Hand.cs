@@ -54,8 +54,8 @@ public class Hand : MonoBehaviour
             int pivot2 = cardsInHand.Count / 2;
             float degree = angle / 2;
             var pivot = pivot2;
-            ReplaceHandCard(cardsInHand[pivot1], degree,pivot1);
-            ReplaceHandCard(cardsInHand[pivot2], -1*degree, pivot2);
+            ReplaceHandCard(cardsInHand[pivot1], degree,pivot1+1);
+            ReplaceHandCard(cardsInHand[pivot2], -1*degree, pivot2+1);
             
             for (int i = 1; i < pivot; i++)
             {
@@ -85,8 +85,8 @@ public class Hand : MonoBehaviour
 
     public void ReplaceHandCard(GameObject card, float degree,int layer)
     {
-        card.GetComponent<SortingGroup>().sortingOrder = layer;
-        card.transform.position = SolvePosition(degree,layer);
+        card.GetComponent<SortingGroup>().sortingOrder = layer+1;
+        card.transform.position = SolvePosition(degree,layer+1);
         card.transform.rotation = Quaternion.Euler(0, 0, degree);
     }
     public void SpawnCard(GameObject card)

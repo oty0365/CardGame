@@ -396,7 +396,7 @@ MonoBehaviour:
   damage: {fileID: 7074480011666024833}
   hp: {fileID: 6372057492621976050}
   cardState: 0
-  multiplyer: 1.1
+  multiplyer: 1.2
   changeSpeed: 4
 --- !u!61 &-7969431467062432232
 BoxCollider2D:
