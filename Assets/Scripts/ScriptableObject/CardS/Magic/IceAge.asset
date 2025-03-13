@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: IceAge
+  m_EditorClassIdentifier: 
+  cardCode: iceage
+  cardType: 1
+  cardName: "\uC544\uC774\uC2A4 \uC5D0\uC774\uC9C0"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 828f215dfa658794da13dfd7c874e96f, type: 3}
+  damage: 3
+  health: 1
+  cost: 4
+  monsterEffects: 68
+  magicEffects: 4
+  passiveEffects: 0

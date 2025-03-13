@@ -26,6 +26,8 @@ namespace ScriptableObject.ScriptableObjectEditor
             
             EditorGUILayout.LabelField("카드 설정", EditorStyles.boldLabel);
             cardScriptableObject.CardType = (ScriptableObject._CardType)EditorGUILayout.EnumPopup(cardScriptableObject.CardType);
+            cardScriptableObject.CardCode=EditorGUILayout.TextField("카드 코드", cardScriptableObject.CardCode);
+            cardScriptableObject.CanLook = EditorGUILayout.Toggle("볼 수 있는가?", cardScriptableObject.CanLook);
             cardScriptableObject.CardName = EditorGUILayout.TextField("카드 이름", cardScriptableObject.CardName);
             EditorGUILayout.LabelField("카드 설명");
             cardScriptableObject.CardDescription = EditorGUILayout.TextArea(cardScriptableObject.CardDescription, GUILayout.Height(60));
@@ -44,7 +46,7 @@ namespace ScriptableObject.ScriptableObjectEditor
                     cardScriptableObject.MagicEffects = (MagicEffects)(object)EditorGUILayout.EnumFlagsField("마법 효과", cardScriptableObject.MagicEffects);
                     break;
                 case ScriptableObject._CardType.Passive:
-                    cardScriptableObject.Cost = EditorGUILayout.IntField("가격", cardScriptableObject.Cost);
+                    //cardScriptableObject.Cost = EditorGUILayout.IntField("가격", cardScriptableObject.Cost);
                     cardScriptableObject.PassiveEffects = (PassiveEffects)(object)EditorGUILayout.EnumFlagsField("패시브 스킬", cardScriptableObject.PassiveEffects);
                     break;
             }

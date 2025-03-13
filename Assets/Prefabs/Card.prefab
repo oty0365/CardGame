@@ -274,9 +274,11 @@ GameObject:
   - component: {fileID: 8745013884538287779}
   - component: {fileID: 6192896182352614650}
   - component: {fileID: 5983776957595303692}
+  - component: {fileID: 1273485382190346326}
+  - component: {fileID: -7969431467062432232}
   m_Layer: 0
   m_Name: Card
-  m_TagString: Untagged
+  m_TagString: card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,6 +371,79 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1273485382190346326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684849840610124932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ca2ff7a1af686479e42430ab40e9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardFrame:
+  - {fileID: -5183841319591154371, guid: c752b88074d6a1e408329fb8fcea8d3e, type: 3}
+  - {fileID: 3817742055212812799, guid: ad6ac74495f18894cb0a246fe3b5cf63, type: 3}
+  - {fileID: 5620351805052409141, guid: 84ea220e4b1536a4fa30aeddd76f5e3f, type: 3}
+  - {fileID: 579672347098245312, guid: 94cb652e83295bd4aa471520c3bee2ce, type: 3}
+  card: {fileID: 0}
+  currentCardFrame: {fileID: 0}
+  cardName: {fileID: 385952160765991528}
+  cardCoast: {fileID: 8933181945264027576}
+  cardDesc: {fileID: 6773661658792892098}
+  damage: {fileID: 7074480011666024833}
+  hp: {fileID: 6372057492621976050}
+  cardState: 0
+  multiplyer: 1.2
+  changeSpeed: 4
+--- !u!61 &-7969431467062432232
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684849840610124932}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.42, y: 3.2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.42, y: 3.2}
+  m_EdgeRadius: 0
 --- !u!1 &5532435956297276611
 GameObject:
   m_ObjectHideFlags: 0
