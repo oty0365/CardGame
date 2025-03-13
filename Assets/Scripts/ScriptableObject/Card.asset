@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Card
   m_EditorClassIdentifier: 
   cardType: 0
-  name: 
+  cardName: 
   description: "\uCE74\uB4DC \uC124\uBA85"
   sprite: {fileID: 0}
   damage: 0
   health: 0
   cost: 0
+  monsterEffects: 0
+  magicEffects: 0
+  passiveEffects: 0
