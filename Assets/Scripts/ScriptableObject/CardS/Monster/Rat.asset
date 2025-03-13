@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: Rat
+  m_EditorClassIdentifier: 
+  cardCode: rat
+  cardType: 0
+  cardName: "\uB4E4\uC950"
+  cardDescription: "\uCE74\uB4DC \uC124\uBA85"
+  sprite: {fileID: -5237074582503671387, guid: 825acd00e28bcf147bd5bcf8ee9d3386, type: 3}
+  damage: 2
+  health: 1
+  cost: 1
+  monsterEffects: 16
+  magicEffects: 0
+  passiveEffects: 0
