@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-//ì•„ì§ ì¸ë±ì‹± ë¬¸ì œê°€ ìˆìœ¼ë‚˜ ì§€ê¸ˆ ë‹¹ì¥ ì‹ ê²½ì“°ì§€ ì•Šì•„ë„ ëœë‹¤.
+//¾ÆÁ÷ ÀÎµ¦½Ì ¹®Á¦°¡ ÀÖÀ¸³ª Áö±İ ´çÀå ½Å°æ¾²Áö ¾Ê¾Æµµ µÈ´Ù.
 public class Hand : MonoBehaviour
 {
     public float radius;
