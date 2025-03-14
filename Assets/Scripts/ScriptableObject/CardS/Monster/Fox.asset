@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: Fox
+  m_EditorClassIdentifier: 
+  cardCode: fox
+  cardType: 0
+  cardName: "\uC5EC\uC6B0"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 5a4dd061d325ba4448c40466c7b9aa1e, type: 3}
+  damage: 2
+  health: 2
+  cost: 1
+  monsterEffects: 0
+  magicEffects: 0
+  passiveEffects: 0
+  canLook: 0

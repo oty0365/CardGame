@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: ChangeFaith
+  m_EditorClassIdentifier: 
+  cardCode: changefaith
+  cardType: 1
+  cardName: "\uC5C7\uAC08\uB9B0 \uC6B4\uBA85"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 71526b8c6a825de45a96cbb3b1937b4e, type: 3}
+  damage: 3
+  health: 1
+  cost: 5
+  monsterEffects: 68
+  magicEffects: 16
+  passiveEffects: 0
+  canLook: 0
