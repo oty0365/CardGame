@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,13 +17,22 @@ public class LoginSystem : MonoBehaviour
     [SerializeField] private GameObject nameInputPanel;
     [SerializeField] private TMPro.TMP_InputField nameInput;
     [SerializeField] private Button submitNameButton;
+    [SerializeField] private GameObject deckSelectPannel;
+    [SerializeField] private GameObject deckConfrimPannel;
+    [SerializeField] private Button deckConfrimButton;
+    [SerializeField] private DeckSets[] fristDeck;
+    [SerializeField] private GameObject mainScreenPannel;
 
+    private int deckMode=0;
 
     private async void Start()
     {
         
         await UnityServices.InitializeAsync();
         nameInputPanel.SetActive(false);
+        deckSelectPannel.SetActive(false);
+        deckConfrimPannel.SetActive(false);
+        mainScreenPannel.SetActive(false);
         PlayerAccountService.Instance.SignedIn -= SignInWithUnity;
         PlayerAccountService.Instance.SignedIn += SignInWithUnity;
     }
@@ -63,17 +73,74 @@ public class LoginSystem : MonoBehaviour
         PlayerAccountService.Instance.StartSignInAsync();
 
     }
+    private async Task CheckPlayerDeck()
+    {
+        try
+        {
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerDeck" });
+            if (data.TryGetValue("PlayerDeck", out var playerDeck))
+            {
+                Debug.Log("플레이어 덱 불러오기 성공!");
+                mainScreenPannel.SetActive(true);
+                PlayerInfo.Instance.playerDeck =  playerDeck.Value.GetAs<Dictionary<string, int>>();
+                //await CheckPlayerGold();
+            }
+            else
+            {
+                ShowDeckSelectPannel();
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
+        }
+    }
+    /*private async Task CheckPlayerGold()
+    {
+        try
+        {
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "Gold" });
+            if (data.TryGetValue("Gold", out var gold))
+            {
+                Debug.Log("플레이어 골드 불러오기 성공");
+                PlayerInfo.Instance.Gold = gold.Value.GetAs<int>();
+                //playerDeck.Value.GetAs<Dictionary<string, int>>();
+            }
+            else
+            {
+                var initGold = new Dictionary<string, object>
+                {
+                    {"Gold",1000}
+                };
+
+                await CloudSaveService.Instance.Data.Player.SaveAsync(initGold);
+                PlayerInfo.Instance.Gold = 1000;
+                Debug.Log("플레이어 골드 초기화 성공");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
+        }
+    }*/
+
 
     private async Task CheckPlayerName()
     {
         try
         {
-            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerName" });
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerName","Gold","Stage" });
 
             if (data.TryGetValue("PlayerName", out var playerName))
             {
-                string name = playerName.Value.GetAs<string>();
-                Debug.Log($"플레이어 이름: {name}");
+                PlayerInfo.Instance.PlayerName = playerName.Value.GetAs<string>();
+                data.TryGetValue("Gold", out var gold);
+                data.TryGetValue("Stage", out var stage);
+                PlayerInfo.Instance.Gold = gold.Value.GetAs<int>();
+                PlayerInfo.Instance.Stage = stage.Value.GetAs<int>();
+                await CheckPlayerDeck();
+                Debug.Log($"플레이어 이름: {PlayerInfo.Instance.PlayerName}");
+
             }
             else
             {
@@ -88,8 +155,49 @@ public class LoginSystem : MonoBehaviour
     }
     private void ShowNameInputPanel()
     {
-        nameInputPanel.SetActive(true); 
+        nameInputPanel.SetActive(true);
         submitNameButton.onClick.AddListener(OnSubmitName);
+    }
+    private void ShowDeckSelectPannel()
+    {
+        deckSelectPannel.SetActive(true);
+    }
+    public void OnDeckSelect(int mode)
+    {
+        deckMode = mode;
+        deckConfrimPannel.SetActive(true);
+        deckConfrimButton.onClick.AddListener(OnSubmitDeck);
+    }
+    
+    public void ExitConfrim()
+    {
+        deckConfrimPannel.SetActive(false);
+    }
+    private async void OnSubmitDeck()
+    {
+        var deckSets = fristDeck[deckMode];
+        var newDeck = new Dictionary<string, int>(); 
+        foreach(var deckCard in deckSets.CardList)
+        {
+            newDeck.Add(deckCard.card.CardName, deckCard.count);
+        }
+        try
+        {
+            var data = new Dictionary<string, object>
+            {
+                {"PlayerDeck",newDeck}
+            };
+
+            await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+            //await CheckPlayerGold();
+            deckConfrimPannel.SetActive(false);
+            deckSelectPannel.SetActive(false);
+            mainScreenPannel.SetActive(true);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"플레이어 이름 설정 중 오류 발생: {ex.Message}");
+        }
     }
 
     private async void OnSubmitName()
@@ -102,13 +210,16 @@ public class LoginSystem : MonoBehaviour
             {
                 var data = new Dictionary<string, object>
                 {
-                    { "PlayerName", newName }
+                    { "PlayerName", newName },{"Gold",1000},{"Stage",0}
                 };
 
                 await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+                PlayerInfo.Instance.PlayerName = newName;
+                PlayerInfo.Instance.Gold = 1000;
+                PlayerInfo.Instance.Stage = 0;
                 Debug.Log($"플레이어 이름이 {newName}(으)로 설정되었습니다.");
-
                 nameInputPanel.SetActive(false);
+                await CheckPlayerDeck();
             }
             catch (System.Exception ex)
             {
