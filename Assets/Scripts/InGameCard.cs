@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public enum CardState
 {
@@ -14,8 +15,6 @@ public class InGameCard : MonoBehaviour,IInteracter
 {
     [Header("카드 프레임")]
     [SerializeField] private Sprite[] cardFrame;
-    [Header("카드 스크립터블 오브젝트")]
-    public CardScriptableObject card;
     [Header("카드형식")]
     public SpriteRenderer currentCardFrame;
     [SerializeField] private TextMeshPro cardName;
@@ -23,11 +22,22 @@ public class InGameCard : MonoBehaviour,IInteracter
     [SerializeField] private TextMeshPro cardDesc;
     [SerializeField] private TextMeshPro damage;
     [SerializeField] private TextMeshPro hp;
+    [SerializeField] private SpriteRenderer cardImage;
     [Header("카드 상태")]
     public CardState cardState;
     [SerializeField] private float multiplyer;
     [SerializeField] private float changeSpeed;
-
+    [Header("카드 스크립터블 오브젝트")]
+    [SerializeField] private CardScriptableObject card;
+    public CardScriptableObject Card
+    {
+        get => card;
+        set
+        {
+            card = value;
+            CardUpdate();
+        }
+    }
 
     private SortingGroup sortingGroup;
     private Vector3 originalScale;
@@ -39,6 +49,11 @@ public class InGameCard : MonoBehaviour,IInteracter
     {
         sortingGroup = GetComponent<SortingGroup>();
         InitCard();
+        /*card.CanLook = true;
+        Card = card;
+        card = CardManager.Instance.CardDict["dog"];
+        card.CanLook = true;
+        Card = card;*/
         //CardUpdate();
     }
     public void CardUpdate()
@@ -54,19 +69,23 @@ public class InGameCard : MonoBehaviour,IInteracter
             {
                 case _CardType.Monster:
                     currentCardFrame.sprite = cardFrame[0];
+
                     cardCoast.text = card.Cost.ToString();
                     damage.text = card.Damage.ToString();
                     hp.text = card.Health.ToString();
                     cardDesc.text = card.MonsterEffects.ToString();
+                    cardImage.sprite = card.Sprite;
                     break;
                 case _CardType.Magic:
                     currentCardFrame.sprite = cardFrame[1];
                     cardCoast.text = card.Cost.ToString();
                     cardDesc.text = card.MagicEffects.ToString();
+                    cardImage.sprite = card.Sprite;
                     break;
                 case _CardType.Passive:
                     currentCardFrame.sprite = cardFrame[2];
                     cardDesc.text = card.PassiveEffects.ToString();
+                    cardImage.sprite = card.Sprite;
                     break;
             }
         }

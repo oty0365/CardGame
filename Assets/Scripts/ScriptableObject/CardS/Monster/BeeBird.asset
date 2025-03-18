@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: BeeBird
+  m_EditorClassIdentifier: 
+  cardCode: beebird
+  cardType: 0
+  cardName: "\uBC8C\uC0C8"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: e8fd84dfc4d671b4eac7544f2d6d6f09, type: 3}
+  damage: 1
+  health: 2
+  cost: 0
+  monsterEffects: 128
+  magicEffects: 0
+  passiveEffects: 0
+  canLook: 0

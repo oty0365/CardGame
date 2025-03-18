@@ -15,11 +15,12 @@ MonoBehaviour:
   cardCode: rat
   cardType: 0
   cardName: "\uB4E4\uC950"
-  cardDescription: "\uCE74\uB4DC \uC124\uBA85"
-  sprite: {fileID: -5237074582503671387, guid: 825acd00e28bcf147bd5bcf8ee9d3386, type: 3}
-  damage: 2
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 825acd00e28bcf147bd5bcf8ee9d3386, type: 3}
+  damage: 1
   health: 1
-  cost: 1
-  monsterEffects: 16
+  cost: 0
+  monsterEffects: 4
   magicEffects: 0
   passiveEffects: 0
+  canLook: 0

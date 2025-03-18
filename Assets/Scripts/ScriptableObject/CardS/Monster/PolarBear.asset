@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: PolarBear
+  m_EditorClassIdentifier: 
+  cardCode: polarbear
+  cardType: 0
+  cardName: "\uD3F4\uB77C\uACF0"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: ce966661899fdd348bde6f402585d980, type: 3}
+  damage: 4
+  health: 6
+  cost: 4
+  monsterEffects: 1
+  magicEffects: 0
+  passiveEffects: 0
+  canLook: 0

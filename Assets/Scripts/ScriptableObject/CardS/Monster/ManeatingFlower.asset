@@ -16,10 +16,11 @@ MonoBehaviour:
   cardType: 0
   cardName: "\uB124\uD39C\uB370\uC2A4"
   cardDescription: 
-  sprite: {fileID: 4113289393235408459, guid: c4613f020083e5e43b03ea1447fecd09, type: 3}
+  sprite: {fileID: 21300000, guid: c4613f020083e5e43b03ea1447fecd09, type: 3}
   damage: 3
   health: 1
   cost: 2
   monsterEffects: 68
   magicEffects: 0
   passiveEffects: 0
+  canLook: 0
