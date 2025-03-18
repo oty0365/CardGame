@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: DoubleDraw
+  m_EditorClassIdentifier: 
+  cardCode: doubledraw
+  cardType: 1
+  cardName: "\uB354\uBE14 \uB4DC\uB85C\uC6B0"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 8a1f2f5d2146a8f4ab9634c8b074565c, type: 3}
+  damage: 3
+  health: 1
+  cost: 3
+  monsterEffects: 68
+  magicEffects: 1
+  passiveEffects: 0
+  canLook: 0
