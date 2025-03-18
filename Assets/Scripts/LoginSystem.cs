@@ -83,7 +83,6 @@ public class LoginSystem : MonoBehaviour
                 Debug.Log("플레이어 덱 불러오기 성공!");
                 mainScreenPannel.SetActive(true);
                 PlayerInfo.Instance.playerDeck =  playerDeck.Value.GetAs<Dictionary<string, int>>();
-                //await CheckPlayerGold();
             }
             else
             {
@@ -95,38 +94,9 @@ public class LoginSystem : MonoBehaviour
             Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
         }
     }
-    /*private async Task CheckPlayerGold()
-    {
-        try
-        {
-            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "Gold" });
-            if (data.TryGetValue("Gold", out var gold))
-            {
-                Debug.Log("플레이어 골드 불러오기 성공");
-                PlayerInfo.Instance.Gold = gold.Value.GetAs<int>();
-                //playerDeck.Value.GetAs<Dictionary<string, int>>();
-            }
-            else
-            {
-                var initGold = new Dictionary<string, object>
-                {
-                    {"Gold",1000}
-                };
-
-                await CloudSaveService.Instance.Data.Player.SaveAsync(initGold);
-                PlayerInfo.Instance.Gold = 1000;
-                Debug.Log("플레이어 골드 초기화 성공");
-            }
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
-        }
-    }*/
-
-
     private async Task CheckPlayerName()
     {
+        
         try
         {
             var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerName","Gold","Stage" });
@@ -189,7 +159,6 @@ public class LoginSystem : MonoBehaviour
             };
 
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
-            //await CheckPlayerGold();
             deckConfrimPannel.SetActive(false);
             deckSelectPannel.SetActive(false);
             mainScreenPannel.SetActive(true);
