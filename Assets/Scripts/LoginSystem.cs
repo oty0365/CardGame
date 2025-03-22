@@ -77,12 +77,14 @@ public class LoginSystem : MonoBehaviour
     {
         try
         {
-            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerDeck" });
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerDeck" ,"PlayerCards"});
             if (data.TryGetValue("PlayerDeck", out var playerDeck))
             {
                 Debug.Log("플레이어 덱 불러오기 성공!");
                 mainScreenPannel.SetActive(true);
                 PlayerInfo.Instance.playerDeck =  playerDeck.Value.GetAs<Dictionary<string, int>>();
+                data.TryGetValue("PlayerCards", out var playerCards);
+                PlayerInfo.Instance.playerCards = playerCards.Value.GetAs<Dictionary<string, int>>();
             }
             else
             {
@@ -146,18 +148,19 @@ public class LoginSystem : MonoBehaviour
     private async void OnSubmitDeck()
     {
         var deckSets = fristDeck[deckMode];
-        var newDeck = new Dictionary<string, int>(); 
+        var newDeck = new Dictionary<string, int>();
+        var cards = new Dictionary<string, int>();
         foreach(var deckCard in deckSets.CardList)
         {
-            newDeck.Add(deckCard.card.CardName, deckCard.count);
+            newDeck.Add(deckCard.card.CardCode, deckCard.count);
         }
         try
         {
             var data = new Dictionary<string, object>
             {
-                {"PlayerDeck",newDeck}
+                {"PlayerDeck",newDeck},
+                {"PlayerCards",cards}
             };
-
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
             deckConfrimPannel.SetActive(false);
             deckSelectPannel.SetActive(false);

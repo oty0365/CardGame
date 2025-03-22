@@ -25,6 +25,7 @@ public class InGameCard : MonoBehaviour,IInteracter
     [SerializeField] private SpriteRenderer cardImage;
     [Header("카드 상태")]
     public CardState cardState;
+    public bool ableToSee;
     [SerializeField] private float multiplyer;
     [SerializeField] private float changeSpeed;
     [Header("카드 스크립터블 오브젝트")]
@@ -59,7 +60,7 @@ public class InGameCard : MonoBehaviour,IInteracter
     public void CardUpdate()
     {
         cardName.text = card.CardName;
-        if (!card.CanLook)
+        if (!ableToSee)
         {
             currentCardFrame.sprite = cardFrame[3];
         }

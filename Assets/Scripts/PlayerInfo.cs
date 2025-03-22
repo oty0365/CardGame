@@ -1,9 +1,16 @@
+using ScriptableObject;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+[Serializable]
+public class DeckCardSet
+{
+    public CardScriptableObject card;
+    public int count;
+}
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -13,6 +20,9 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldTmp;
     [Header("플레이어 정보")]
     private string _playerName;
+    [Header("덱 최대 매수")]
+    public int count;
+
     private int _gold;
     private int _stage;
     public string PlayerName {
@@ -36,7 +46,6 @@ public class PlayerInfo : MonoBehaviour
                 UpdateUI(goldTmp, _gold.ToString());
             }
         }
-            
     }
     public int Stage 
     {
@@ -46,37 +55,37 @@ public class PlayerInfo : MonoBehaviour
             if (_stage != value)
             {
                 _stage = value;
-                //UpdateUI(goldTmp, _stage.ToString());
             }
         }
     }
     public Dictionary<string, int> playerDeck = new Dictionary<string, int>();
     public Dictionary<string, int> playerCards = new Dictionary<string, int>();
+    public DeckCardSet[] cardsInDeck;
+
+
 
     private void Awake()
     {
         Instance = this;
     }
-    void Start()
-    {
-        
-    }
 
+    private void Start()
+    {
+        cardsInDeck = new DeckCardSet[count];
+    }
 
     void Update()
     {
         
     }
-    public void UpdateUI(object frame, string value)
+        
+        
+    public void UpdateUI(TextMeshProUGUI frame, string value)
     {
-        if(frame is TextMeshProUGUI tmp)
-        {
-            tmp.text = value;   
-        }
-        else if(frame is Slider slider)
-        {
-            slider.value = float.Parse(value);
-        }
+        frame.text = value;
     }
-
+    public void UpdateUI(Slider frame, string value)
+    {
+        frame.value = float.Parse(value);
+    }
 }

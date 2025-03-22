@@ -23,4 +23,4 @@ MonoBehaviour:
   monsterEffects: 1
   magicEffects: 0
   passiveEffects: 0
-  canLook: 0
+  canLook: 1

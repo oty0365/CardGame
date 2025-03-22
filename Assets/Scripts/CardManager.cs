@@ -8,6 +8,7 @@ public class CardManager : MonoBehaviour
     public CardSets cardSets;
     public Dictionary<string, CardScriptableObject> CardDict = new Dictionary<string, CardScriptableObject>();
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -19,16 +20,10 @@ public class CardManager : MonoBehaviour
         {
             Destroy(gameObject); 
         }
-    }
-    void Start()
-    {
-        foreach(var i in cardSets.CardList)
+        foreach (var i in cardSets.CardList)
         {
             CardDict.Add(i.CardCode, i);
         }
     }
-    void Update()
-    {
-        
-    }
+    
 }
