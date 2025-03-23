@@ -20,8 +20,8 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldTmp;
     [Header("플레이어 정보")]
     private string _playerName;
-    [Header("덱 최대 매수")]
-    public int count;
+    //[Header("덱 최대 매수")]
+    //public int count;
 
     private int _gold;
     private int _stage;
@@ -69,10 +69,10 @@ public class PlayerInfo : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    /*private void Start()
     {
         cardsInDeck = new DeckCardSet[count];
-    }
+    }*/
 
     void Update()
     {

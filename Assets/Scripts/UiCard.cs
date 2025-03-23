@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Xml.Schema;
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,18 +24,44 @@ public class UiCard : MonoBehaviour
     [SerializeField] private Image cardImage;
     [Header("덱전용 카드인지 확인")]
     public bool isInDeck;
+    [Header("이카드가 이동중인지 확인")]
+    public bool isMoving;
+    public static bool isCustomizing;
+
+    private RectTransform _instantinatedObj;
 
     public static Action CheckAllCardsInDeck;
     public static Action UpdateInventroyInDeck;
 
     private void Awake()
     {
-        CheckAllCardsInDeck = CheckDeck;
-        UpdateInventroyInDeck= UpdateInventory;
+
     }
+
+    private void Update()
+    {
+        if (isMoving)
+        {
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                DeckBulidingManager.Instance.canvasReck,
+                Input.mousePosition,
+                Camera.main,
+                out localPoint
+            );
+            _instantinatedObj.anchoredPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //Debug.Log(_instantinatedObj);
+            //_instantinatedObj.anchoredPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        }
+    }
+
     void Start()
     {
-        if(!isInDeck)
+        CheckAllCardsInDeck += CheckDeck;
+        UpdateInventroyInDeck += UpdateInventory;
+        Debug.Log(CheckAllCardsInDeck.GetInvocationList().Length);
+        if (!isInDeck)
         {
             var index = transform.GetSiblingIndex();
             card = CardManager.Instance.cardSets.CardList[index];
@@ -49,21 +76,29 @@ public class UiCard : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-        CheckDeck();
+    }
+    public void OnClick()
+    {
+        _instantinatedObj = Instantiate(gameObject, DeckBulidingManager.Instance.canvasReck).GetComponent<RectTransform>();
+        //_instantinatedObj.SetParent(DeckBulidingManager.Instance.canvasTransform, false);
+        isMoving = true;
     }
 
     public void CheckDeck()
     {
-        
         if (isInDeck)
         {
             var index = transform.GetSiblingIndex();
             if (PlayerInfo.Instance.cardsInDeck[index].card != null)
             {
-                Debug.Log(index);
+                gameObject.SetActive(true);
                 card = PlayerInfo.Instance.cardsInDeck[index].card;
                 UpdateCard();
                 cardCount.text = PlayerInfo.Instance.cardsInDeck[index].count.ToString();
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
     }
@@ -77,7 +112,6 @@ public class UiCard : MonoBehaviour
     }
     public void UpdateCard()
     {
-        Debug.Log("!");
         switch (card.CardType)
         {
             case _CardType.Monster:

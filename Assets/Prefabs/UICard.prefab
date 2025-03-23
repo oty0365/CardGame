@@ -359,6 +359,7 @@ GameObject:
   - component: {fileID: 1668375128043897238}
   - component: {fileID: 326727508286161165}
   - component: {fileID: 2352575684827470189}
+  - component: {fileID: 4930658689676597326}
   m_Layer: 5
   m_Name: UICard
   m_TagString: Untagged
@@ -452,10 +453,40 @@ MonoBehaviour:
   cardName: {fileID: 1654025843625344815}
   cardCoast: {fileID: 6721686340401821010}
   cardDesc: {fileID: 4839856719233030554}
-  cardCount: {fileID: 0}
+  cardCount: {fileID: 2393764913066262325}
   damage: {fileID: 4856628965764872946}
   hp: {fileID: 8766148418198147637}
   cardImage: {fileID: 2296590988613006532}
+  isInDeck: 0
+--- !u!114 &4930658689676597326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2421375642740340185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2352575684827470189}
+          m_TargetAssemblyTypeName: UiCard, Assembly-CSharp
+          m_MethodName: OnClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3724807785930302752
 GameObject:
   m_ObjectHideFlags: 0

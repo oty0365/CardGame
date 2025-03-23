@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class DeckBulidingManager : MonoBehaviour
     [SerializeField] private GameObject deckBulidingPannel;
     [SerializeField] private CardInventory cardInventory;
     [SerializeField] private DeckInventory deckInventory;
+    public RectTransform canvasReck;
     //[SerializeField] private UiCard uiCard;
 
     void Awake()
@@ -22,19 +24,29 @@ public class DeckBulidingManager : MonoBehaviour
     {
 
     }
-
-   public void OnPannelActived()
+  
+   public async void OnPannelActived()
    {
-        OnPannelActivedAsync();     
+        await OnPannelActivedAsync();     
    }
-    public async void OnPannelActivedAsync()
+    public async Task OnPannelActivedAsync()
     {
-        deckBulidingPannel.SetActive(true);
-        await cardInventory.OnEnableCardLoad();
-        await deckInventory.OnEnableDecks();
-        deckInventory.InitializeDeckInventory();
-        UiCard.UpdateInventroyInDeck.Invoke();
-        UiCard.CheckAllCardsInDeck.Invoke();
+            try
+            {
+                deckBulidingPannel.SetActive(true);
+
+                await cardInventory.OnEnableCardLoad();
+                await deckInventory.OnEnableDecks();
+                deckInventory.InitializeDeckInventory();
+                UiCard.UpdateInventroyInDeck?.Invoke();
+                UiCard.CheckAllCardsInDeck?.Invoke();
+
+
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"패널 활성화 중 오류 발생: {ex.Message}");
+            }
     }
 
 }
