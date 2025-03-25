@@ -20,7 +20,7 @@ MonoBehaviour:
   damage: 2
   health: 2
   cost: 1
-  monsterEffects: 0
+  monsterEffects: 65536
   magicEffects: 0
   passiveEffects: 0
   canLook: 0

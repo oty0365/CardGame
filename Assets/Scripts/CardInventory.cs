@@ -3,20 +3,19 @@ using UnityEngine;
 
 public class CardInventory : MonoBehaviour
 {
-    public int cardCount;
     public GameObject cardBase;
 
     private void Awake()
     {
-        for(var i = 0; i < cardCount; i++)
-        {
-            var o = Instantiate(cardBase, gameObject.transform); 
-            o.transform.localScale = new Vector3(1.1f, 1.1f, 1);
-        }
     }
     private void Start()
     {
         //gameObject.SetActive(false);
+        for (var i = 0; i < CardManager.Instance.cardSets.CardList.Count; i++)
+        {
+            var o = Instantiate(cardBase, gameObject.transform);
+            o.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+        }
     }
     public async Task OnEnableCardLoad()
     {

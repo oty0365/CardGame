@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348dc6157307a04e942d5e2e980ad72, type: 3}
+  m_Name: WalkingDroid
+  m_EditorClassIdentifier: 
+  cardCode: walkingdroid
+  cardType: 0
+  cardName: "\uBCF4\uD589\uB4DC\uB85C\uC774\uB4DC"
+  cardDescription: 
+  sprite: {fileID: 21300000, guid: 73badb900d93c8843a1e789246f7db97, type: 3}
+  damage: 1
+  health: 6
+  cost: 1
+  monsterEffects: 1025
+  magicEffects: 0
+  passiveEffects: 0
+  canLook: 0

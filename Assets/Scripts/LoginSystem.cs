@@ -42,6 +42,7 @@ public class LoginSystem : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
             Debug.Log("SignIn is successful.");
+            MainScreenManager.Instance.EndLoadingPannel();
             await CheckPlayerName();
         }
         catch (AuthenticationException ex)
@@ -55,6 +56,7 @@ public class LoginSystem : MonoBehaviour
     }
     private async void SignInWithUnity()
     {
+        MainScreenManager.Instance.StartLoadingPannel();
         try
         {
 

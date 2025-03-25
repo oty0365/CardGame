@@ -15,7 +15,6 @@ public class DeckInventory : MonoBehaviour
     {
         Debug.Log("µ¶ √ ±‚»≠ ¡ﬂ");
         var index = 0;
-        Debug.Log(PlayerInfo.Instance.cardsInDeck.Length);
         foreach (var i in PlayerInfo.Instance.playerDeck)
         {
             //Debug.Log(CardManager.Instance.CardDict[i.Key] + "," + i.Value);

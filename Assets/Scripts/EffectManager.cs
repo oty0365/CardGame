@@ -12,8 +12,16 @@ public enum MonsterEffects
     Grow = 1<<5,
     Predation = 1<<6,
     DrainLife = 1<<7,
-    Swip = 1<<8
-
+    Frighten = 1<<8,
+    MindControl = 1<<9,
+    Move = 1<<10,
+    Execution = 1<<11,
+    DoubleAttack = 1<<12,
+    AttackAll = 1<<13,
+    WingsOfRuin = 1<<14,
+    AtomicBom = 1<<15,
+    QuickBody = 1<<16,
+    PayBack = 1<<17
 }
 [System.Flags]
 public enum MagicEffects
@@ -24,7 +32,14 @@ public enum MagicEffects
     IceAge=1<<2,
     DoubleDraw= 1<<3,
     ChangeFaith = 1<<4,
-    EyesOfDeepSea = 1<<5
+    EyesOfDeepSea = 1<<5,
+    BulkUp = 1<<6,
+    HealthPotion = 1<<7,
+    PoisionousPotion = 1<<8,
+    DualBladed = 1<<9,
+    TheErosion = 1<<10,
+    TheBarrior = 1<<11,
+    TheFall = 1<<12
 
 }
 [System.Flags]
