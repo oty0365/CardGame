@@ -489,13 +489,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 0
+  - eventID: 13
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2352575684827470189}
           m_TargetAssemblyTypeName: UiCard, Assembly-CSharp
-          m_MethodName: OnHover
+          m_MethodName: OnStartDrag
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

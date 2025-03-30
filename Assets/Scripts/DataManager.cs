@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Unity.Services.CloudSave;
 using Unity.Services.Core;
@@ -27,7 +29,15 @@ public class DataManager : MonoBehaviour
             if (data.TryGetValue("PlayerDeck", out var playerDeck))
             {
                 Debug.Log("플레이어 덱 불러오기 성공!");
-                PlayerInfo.Instance.playerDeck = playerDeck.Value.GetAs<Dictionary<string, int>>();
+                var deckJson = playerDeck.Value.GetAs<string>();
+                PlayerInfo.Instance.playerDeck = new OrderedDictionary();
+                List<KeyValuePair<string, int>> deckList = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(deckJson);
+                PlayerInfo.Instance.playerDeck = new OrderedDictionary();
+                foreach (var item in deckList)
+                {
+                    PlayerInfo.Instance.playerDeck.Add(item.Key, item.Value);
+                }
+
             }
         }
         catch (System.Exception ex)
@@ -52,4 +62,21 @@ public class DataManager : MonoBehaviour
             Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
         }
     }
+
+    /*public async Task SavePlayerDeck(Dictionary<string,int> deck)
+    {
+        try
+        {
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerDeck" });
+            if (data.TryGetValue("PlayerDeck", out var playerDeck))
+            {
+                Debug.Log("플레이어 덱 불러오기 성공!");
+                PlayerInfo.Instance.playerDeck = playerDeck.Value.GetAs<Dictionary<string, int>>();
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"플레이어 덱 불러오기 중 오류 발생: {ex.Message}");
+        }
+    }*/
 }

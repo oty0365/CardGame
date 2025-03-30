@@ -1,6 +1,7 @@
 using ScriptableObject;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,8 +59,8 @@ public class PlayerInfo : MonoBehaviour
             }
         }
     }
-    public Dictionary<string, int> playerDeck = new Dictionary<string, int>();
-    public Dictionary<string, int> playerCards = new Dictionary<string, int>();
+    public OrderedDictionary playerDeck = new OrderedDictionary();
+    public Dictionary<string,int> playerCards = new Dictionary<string, int>();
     public DeckCardSet[] cardsInDeck;
 
 

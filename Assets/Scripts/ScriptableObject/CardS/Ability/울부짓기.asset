@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c513ac1781e054d817534bb8401a15, type: 3}
+  m_Name: "\uC6B8\uBD80\uC9D3\uAE30"
+  m_EditorClassIdentifier: 
+  cardType: 0
+  monsterEffects: 1
+  magicEffects: 0
+  passiveEffects: 0
+  abilityName: "\uC6B8\uBD80\uC9D3\uAE30"
+  abilityDesc: "\uC6B8\uBD80\uC9D3\uC5B4 \uC804\uBC29\uC758 \uBAAC\uC2A4\uD130\uC758
+    \uACF5\uACA9\uB825\uC744 1\uAC10\uC18C\uC2DC\uD0A8\uB2E4."

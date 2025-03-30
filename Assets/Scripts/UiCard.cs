@@ -31,13 +31,13 @@ public class UiCard : MonoBehaviour
     [Header("이카드가 이동중인지 확인")]
     public bool isMoving;
 
-    public static bool IsCustomizing;
+    public static int IsCustomizing;
     //public static CardScriptableObject HoverdCard;
     public static Action CheckAllCardsInDeck;
     public static Action UpdateInventroyInDeck;
     public static Action InitInventroyInDeck;
 
-    private RectTransform _instantinatedObj;
+    public static RectTransform InstantinatedObj;
     private void Awake()
     {
 
@@ -45,6 +45,10 @@ public class UiCard : MonoBehaviour
 
     private void Update()
     {
+        if(InstantinatedObj == null)
+        {
+            isMoving = false;
+        }
         if (isMoving)
         {
             Vector2 localPoint;
@@ -54,7 +58,7 @@ public class UiCard : MonoBehaviour
                 Camera.main,
                 out localPoint
             );
-            _instantinatedObj.anchoredPosition = Input.mousePosition;
+            InstantinatedObj.anchoredPosition = Input.mousePosition;
             //Debug.Log(_instantinatedObj);
             //_instantinatedObj.anchoredPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -63,12 +67,14 @@ public class UiCard : MonoBehaviour
 
     void Start()
     {
-        CheckAllCardsInDeck += CheckDeck;
-        UpdateInventroyInDeck += UpdateInventory;
-        InitInventroyInDeck += InitCard;
-        Debug.Log(CheckAllCardsInDeck.GetInvocationList().Length);
-        IsCustomizing = false;
-        InitCard();
+        if (InstantinatedObj==null || InstantinatedObj.gameObject != gameObject)
+        {
+            CheckAllCardsInDeck += CheckDeck;
+            UpdateInventroyInDeck += UpdateInventory;
+            InitInventroyInDeck += InitCard;
+            InitCard();
+        }
+        //Debug.Log(CheckAllCardsInDeck.GetInvocationList().Length);
         /*if (!isInDeck)
         {
             var index = transform.GetSiblingIndex();
@@ -89,20 +95,32 @@ public class UiCard : MonoBehaviour
     {
         CardDescriptionPannel.Instance.gameObject.SetActive(true);
         CardDescriptionPannel.Instance.PutCardInfo(card);
-        /*if (!IsCustomizing)
-        {
-            IsCustomizing = true;
-            _instantinatedObj = Instantiate(gameObject, DeckBulidingManager.Instance.canvasReck).GetComponent<RectTransform>();
-            _instantinatedObj.GetComponent<UiCard>().UpdateCard();
-            _instantinatedObj.localScale = new Vector3(4, 4, 1);
-            _instantinatedObj.SetParent(DeckBulidingManager.Instance.canvasReck, false);
-            _instantinatedObj.SetAsLastSibling();
-            isMoving = true;
-        }*/
     }
-    public void OnHover()
+    public void OnDestroy()
     {
-;       Debug.Log("!");
+        CheckAllCardsInDeck -= CheckDeck;
+        UpdateInventroyInDeck -= UpdateInventory;
+        InitInventroyInDeck -= InitCard;
+    }
+    public void OnStartDrag()
+    {
+        if (IsCustomizing==0)
+        {
+            IsCustomizing = isInDeck ? 1 : 2;
+            InstantinatedObj = Instantiate(gameObject, DeckBulidingManager.Instance.canvasReck).GetComponent<RectTransform>();
+            var c = InstantinatedObj.GetComponent<UiCard>();
+            c.currentCardFrame.raycastTarget = false;
+            c.cardImage.raycastTarget = false;
+            InstantinatedObj.GetComponent<Image>().raycastTarget = false;
+            c.card = card;
+            c.UpdateCard();
+            InstantinatedObj.localScale = new Vector3(4.5f, 4.5f, 1);
+            InstantinatedObj.SetParent(DeckBulidingManager.Instance.canvasReck, false);
+            InstantinatedObj.SetAsLastSibling();
+            DeckBulidingManager.Instance.OnDragingCard(IsCustomizing);
+            isMoving = true;
+            Debug.Log(InstantinatedObj.GetComponent<UiCard>().card.CardCode);
+        }
     }
     
 
@@ -111,7 +129,7 @@ public class UiCard : MonoBehaviour
         if (isInDeck)
         {
             var index = transform.GetSiblingIndex();
-            if (PlayerInfo.Instance.cardsInDeck[index].card != null)
+            if (PlayerInfo.Instance.cardsInDeck[index].card != null && PlayerInfo.Instance.cardsInDeck[index].count>0)
             {
                 gameObject.SetActive(true);
                 card = PlayerInfo.Instance.cardsInDeck[index].card;
@@ -168,6 +186,7 @@ public class UiCard : MonoBehaviour
             UpdateCard();
             if (PlayerInfo.Instance.playerCards.TryGetValue(card.CardCode, out int value))
             {
+                gameObject.SetActive(true);
                 cardCount.text = value.ToString();
             }
             else

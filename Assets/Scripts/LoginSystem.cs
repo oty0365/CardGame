@@ -1,6 +1,8 @@
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Authentication.Components;
@@ -84,7 +86,13 @@ public class LoginSystem : MonoBehaviour
             {
                 Debug.Log("플레이어 덱 불러오기 성공!");
                 mainScreenPannel.SetActive(true);
-                PlayerInfo.Instance.playerDeck =  playerDeck.Value.GetAs<Dictionary<string, int>>();
+                var deckJson = playerDeck.Value.GetAs<string>();
+                List<KeyValuePair<string, int>> deckList = JsonConvert.DeserializeObject<List<KeyValuePair<string, int>>>(deckJson);
+                PlayerInfo.Instance.playerDeck = new OrderedDictionary();
+                foreach (var item in deckList)
+                {
+                    PlayerInfo.Instance.playerDeck.Add(item.Key, item.Value);
+                }
                 data.TryGetValue("PlayerCards", out var playerCards);
                 PlayerInfo.Instance.playerCards = playerCards.Value.GetAs<Dictionary<string, int>>();
             }
@@ -150,17 +158,18 @@ public class LoginSystem : MonoBehaviour
     private async void OnSubmitDeck()
     {
         var deckSets = fristDeck[deckMode];
-        var newDeck = new Dictionary<string, int>();
+        var newDeck = new List<KeyValuePair<string, int>>();
         var cards = new Dictionary<string, int>();
         foreach(var deckCard in deckSets.CardList)
         {
-            newDeck.Add(deckCard.card.CardCode, deckCard.count);
+            newDeck.Add(new KeyValuePair<string, int>(deckCard.card.CardCode, deckCard.count));
         }
+        string deckJson = JsonConvert.SerializeObject(newDeck);
         try
         {
             var data = new Dictionary<string, object>
             {
-                {"PlayerDeck",newDeck},
+                {"PlayerDeck",deckJson},
                 {"PlayerCards",cards}
             };
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
