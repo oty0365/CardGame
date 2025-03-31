@@ -7,6 +7,7 @@ namespace ScriptableObject.ScriptableObjectEditor
 {
     public class CardObjectEditor : EditorWindow
     {
+        public CardSets cardSets;
         private List<CardScriptableObject> cards = new List<CardScriptableObject>();
         private UnityEngine.Vector2 scrollPos;
         private CardScriptableObject selectedCard;
@@ -20,7 +21,7 @@ namespace ScriptableObject.ScriptableObjectEditor
         private void OnGUI()
         {
             EditorGUILayout.LabelField("Card Data Manager", EditorStyles.boldLabel);
-
+            cardSets = (CardSets)EditorGUILayout.ObjectField("카드 셋 선택", cardSets, typeof(CardSets), false);
             if (GUILayout.Button("Load All Cards"))
             {
                 LoadAllCards();
@@ -59,6 +60,8 @@ namespace ScriptableObject.ScriptableObjectEditor
                 if (GUILayout.Button("Save Changes"))
                 {
                     EditorUtility.SetDirty(selectedCard);
+                    cardSets.CardList.Clear();
+                    cardSets.CardList.AddRange(cards);
                     AssetDatabase.SaveAssets();
                 }
             }

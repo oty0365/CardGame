@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3c513ac1781e054d817534bb8401a15, type: 3}
-  m_Name: "\uC815\uC2E0\uC870\uC885"
+  m_Name: "\uCC98\uD615"
   m_EditorClassIdentifier: 
   cardType: 0
-  monsterEffects: 512
+  monsterEffects: 2048
   magicEffects: 0
   passiveEffects: 0
-  abilityName: "\uC815\uC2E0\uC870\uC885"
-  abilityDesc: "\uC774 \uCE74\uB4DC\uAC00 \uB098\uC62C \uB54C \n\uC774\uCE74\uB4DC
-    \uC55E \uC0C1\uB300 \uBAAC\uC2A4\uD130\uB294 \uADF8 \uB4A4\uB85C \uACF5\uACA9
-    \uD560 \uC218 \uC5C6\uB2E4."
+  abilityName: "\uCC98\uD615"
+  abilityDesc: "\uC774 \uCE74\uB4DC\uAC00 \uACF5\uACA9\uD55C \uBAAC\uC2A4\uD130\uC758
+    hp\uAC00 \n\uADF8 \uBAAC\uC2A4\uD130\uC758 \uC6D0\uB798 \uCCB4\uB825\uC758 30%\uC774\uD558\uAC00
+    \uB41C\uB2E4\uBA74\n\uADF8 \uBAAC\uC2A4\uD130\uB97C \uC989\uC2DC \uD30C\uAD34\uD55C\uB2E4."

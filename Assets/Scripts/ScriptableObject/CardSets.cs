@@ -1,3 +1,4 @@
+using ScriptableObject;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
@@ -6,5 +7,5 @@ using UnityEngine;
 public class CardSets : UnityEngine.ScriptableObject
 {
     [SerializeField] private List<ScriptableObject.CardScriptableObject> cardSets;
-    public IReadOnlyList<ScriptableObject.CardScriptableObject> CardList => cardSets;
+    [SerializeField] public List<CardScriptableObject> CardList => cardSets;
 }
