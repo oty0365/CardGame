@@ -11,7 +11,7 @@ public class PlayerInfo : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI nameTmp;
     [SerializeField] private TextMeshProUGUI goldTmp;
-    [Header("ÇÃ·¹ÀÌ¾î Á¤º¸")]
+    [Header("í”Œë ˆì´ì–´ ì •ë³´")]
     private string _playerName;
     private int _gold;
     private int _stage;
