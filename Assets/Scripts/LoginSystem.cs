@@ -80,7 +80,7 @@ public class LoginSystem : MonoBehaviour
             var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerDeck" });
             if (data.TryGetValue("PlayerDeck", out var playerDeck))
             {
-                Debug.Log("ÇÃ·¹ÀÌ¾î µ¦ ºÒ·¯¿À±â ¼º°ø!");
+                Debug.Log("í”Œë ˆì´ì–´ ë± ë¶ˆëŸ¬ì˜¤ê¸° ì„±ê³µ!");
                 mainScreenPannel.SetActive(true);
                 PlayerInfo.Instance.playerDeck =  playerDeck.Value.GetAs<Dictionary<string, int>>();
             }
@@ -91,7 +91,7 @@ public class LoginSystem : MonoBehaviour
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"ÇÃ·¹ÀÌ¾î µ¦ ºÒ·¯¿À±â Áß ¿À·ù ¹ß»ı: {ex.Message}");
+            Debug.LogError($"í”Œë ˆì´ì–´ ë± ë¶ˆëŸ¬ì˜¤ê¸° ì¤‘ ì˜¤ë¥˜ ë°œìƒ: {ex.Message}");
         }
     }
     private async Task CheckPlayerName()
@@ -109,18 +109,18 @@ public class LoginSystem : MonoBehaviour
                 PlayerInfo.Instance.Gold = gold.Value.GetAs<int>();
                 PlayerInfo.Instance.Stage = stage.Value.GetAs<int>();
                 await CheckPlayerDeck();
-                Debug.Log($"ÇÃ·¹ÀÌ¾î ÀÌ¸§: {PlayerInfo.Instance.PlayerName}");
+                Debug.Log($"í”Œë ˆì´ì–´ ì´ë¦„: {PlayerInfo.Instance.PlayerName}");
 
             }
             else
             {
-                Debug.Log("ÇÃ·¹ÀÌ¾î ÀÌ¸§ÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                Debug.Log("í”Œë ˆì´ì–´ ì´ë¦„ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                 ShowNameInputPanel();
             }
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"ÇÃ·¹ÀÌ¾î ÀÌ¸§ È®ÀÎ Áß ¿À·ù ¹ß»ı: {ex.Message}");
+            Debug.LogError($"í”Œë ˆì´ì–´ ì´ë¦„ í™•ì¸ ì¤‘ ì˜¤ë¥˜ ë°œìƒ: {ex.Message}");
         }
     }
     private void ShowNameInputPanel()
@@ -165,7 +165,7 @@ public class LoginSystem : MonoBehaviour
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"ÇÃ·¹ÀÌ¾î ÀÌ¸§ ¼³Á¤ Áß ¿À·ù ¹ß»ı: {ex.Message}");
+            Debug.LogError($"í”Œë ˆì´ì–´ ì´ë¦„ ì„¤ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ: {ex.Message}");
         }
     }
 
@@ -186,18 +186,18 @@ public class LoginSystem : MonoBehaviour
                 PlayerInfo.Instance.PlayerName = newName;
                 PlayerInfo.Instance.Gold = 1000;
                 PlayerInfo.Instance.Stage = 0;
-                Debug.Log($"ÇÃ·¹ÀÌ¾î ÀÌ¸§ÀÌ {newName}(À¸)·Î ¼³Á¤µÇ¾ú½À´Ï´Ù.");
+                Debug.Log($"í”Œë ˆì´ì–´ ì´ë¦„ì´ {newName}(ìœ¼)ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
                 nameInputPanel.SetActive(false);
                 await CheckPlayerDeck();
             }
             catch (System.Exception ex)
             {
-                Debug.LogError($"ÇÃ·¹ÀÌ¾î ÀÌ¸§ ¼³Á¤ Áß ¿À·ù ¹ß»ı: {ex.Message}");
+                Debug.LogError($"í”Œë ˆì´ì–´ ì´ë¦„ ì„¤ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ: {ex.Message}");
             }
         }
         else
         {
-            Debug.LogWarning("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+            Debug.LogWarning("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
         }
     }
 }
