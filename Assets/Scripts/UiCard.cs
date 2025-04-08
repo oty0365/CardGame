@@ -52,17 +52,19 @@ public class UiCard : MonoBehaviour
         if (isMoving)
         {
             Vector2 localPoint;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 DeckBulidingManager.Instance.canvasReck,
                 Input.mousePosition,
-                Camera.main,
+                null,
                 out localPoint
-            );
-            InstantinatedObj.anchoredPosition = Input.mousePosition;
-            //Debug.Log(_instantinatedObj);
-            //_instantinatedObj.anchoredPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+            ))
+            {
+                var additionalPos = ScreenManager.Instance.scaler.referenceResolution;
+                var newPoint = new Vector2(localPoint.x + (additionalPos.x/2), localPoint.y +(additionalPos.y/2) );
+                InstantinatedObj.anchoredPosition = newPoint;
+            }
         }
+
     }
 
     void Start()
@@ -117,6 +119,18 @@ public class UiCard : MonoBehaviour
             InstantinatedObj.localScale = new Vector3(4.5f, 4.5f, 1);
             InstantinatedObj.SetParent(DeckBulidingManager.Instance.canvasReck, false);
             InstantinatedObj.SetAsLastSibling();
+
+            Vector2 localPoint;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                DeckBulidingManager.Instance.canvasReck,
+                Input.mousePosition,
+                null,
+                out localPoint
+            ))
+            {
+                InstantinatedObj.anchoredPosition = localPoint;
+            }
+
             DeckBulidingManager.Instance.OnDragingCard(IsCustomizing);
             isMoving = true;
             Debug.Log(InstantinatedObj.GetComponent<UiCard>().card.CardCode);

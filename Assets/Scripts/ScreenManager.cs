@@ -3,10 +3,15 @@ using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
+    public static ScreenManager Instance { get; private set; }
     public CanvasScaler scaler;
     private Vector2 defaultResolution = new Vector2(1920, 1080);
     private float lastScreenWidth;
     private float lastScreenHeight;
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         AdjustCanvasResolution();
